@@ -1,0 +1,94 @@
+/* Header Layout */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+/* Middle Section: Search Box */
+.header-middle {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 600px;
+    /* Adjust for your desired width */
+    background-color: #fff;
+}
+
+.search-box i {
+    color: #888;
+    margin-right: 10px;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 16px;
+}
+
+/* Right Section: Cart Icon and Username */
+.header-right {
+    display: flex;
+}
+
+.header-right .cart-icon {
+    font-size: 24px;
+    color: #333;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.header-right .cart-quantity-badge {
+    position: absolute;
+    right: -6px;
+    background-color: black;
+    color: white;
+    border-radius: 50%;
+    font-size: 9px;
+    font-weight: bold;
+    bottom: 0;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    line-height: 18px;
+}
+
+.header-right .username {
+    font-size: 16px;
+    font-weight: bold;
+    color: #1f1f1f;
+    background-color: #f3c3d6;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+@media screen and (max-width: 650px) {
+    .header-middle {
+        position: absolute;
+        width: 94%;
+        top: 85px;
+    }
+}
+
+@media (min-width: 700px) and (max-width: 900px) {
+    .search-box {
+        max-width: 400px;
+    }
+}

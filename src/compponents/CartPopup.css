@@ -1,0 +1,135 @@
+.cart-popup {
+    position: fixed;
+    right: -39%;
+    top: 0;
+    width: 38%;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+    transition: right 0.3s ease;
+    z-index: 1000;
+}
+
+.cart-popup.open {
+    right: 0;
+}
+
+.cart-popup-content {
+    padding: 20px 40px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.close-popup {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.7rem;
+    cursor: pointer;
+}
+
+.cart-item-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+}
+
+.cart-item {
+    display: flex;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    border-radius: 5px;
+}
+
+.cart-item-left {
+    flex: 1;
+}
+
+.cart-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.cart-item-middle {
+    flex: 2;
+
+}
+
+.cart-item-title {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.cart-item-quantity {
+    margin-top: 5px;
+    font-size: 0.9rem;
+}
+
+.cart-item-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.remove-item-icon {
+    cursor: pointer;
+}
+
+.cart-item-price {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.send-inquiry {
+    width: 50%;
+}
+
+.cart-quantity {
+    font-size: 9px;
+    text-transform: uppercase;
+    color: #23a094;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-btn {
+    padding: 2px 10px;
+    border: none;
+    background-color: #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.quantity-input {
+    width: 35px;
+    text-align: center;
+    margin: 0 5px;
+    border-radius: 5px;
+    border: 1px solid #ababab;
+}
+
+@media screen and (max-width: 650px) {
+    .cart-popup {
+        width: 98%;
+        right: -98%;
+    }
+
+    .cart-popup-content {
+        padding: 20px 10px;
+    }
+
+    .cart-item-middle {
+        padding-left: 10px;
+    }
+}

@@ -1,0 +1,23 @@
+/* // sorting filter  */
+.sort-btn {
+  padding: 0.8rem 1rem;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.sort-btn.active {
+  background-color: #212529;
+  color: #fff;
+}
+
+.product-data p {
+  margin: 0;
+}
+
+/* ...................  */
+.header-sec {
+  border-bottom: 1px solid #d9d9d9;
+}

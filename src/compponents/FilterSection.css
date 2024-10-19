@@ -1,0 +1,64 @@
+/* Remove the default checkbox appearance */
+.form-check-input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #23a094;
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    outline: none;
+    box-shadow: none;
+}
+
+/* Style for the checked state */
+.form-check-input:checked {
+    background-color: #23a094;
+    border: 2px solid #23a094;
+}
+
+.form-check-input:checked::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.form-check-input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.b-bottom {
+    border-bottom: 2px solid #d9d9d9;
+}
+
+.clrall {
+    color: #f65e5e;
+}
+
+
+@media screen and (max-width: 650px) {
+    .sort-section {
+        flex-direction: column-reverse;
+        gap: 15px;
+        padding-top: 30px;
+    }
+
+    .left-filter {
+        margin-top: 15px;
+    }
+}
+
+@media (min-width: 700px) and (max-width: 900px) {
+    .sort-filter {
+        padding-top: 20px;
+    }
+}
