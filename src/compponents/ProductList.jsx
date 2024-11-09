@@ -75,6 +75,7 @@ export default function ProductList({ addToCart }) {
           return (
             <div className="col-md-4" key={product.id}>
               <div className="product">
+                <span className="off bg-success">-25% OFF</span>
                 <div className="text-center">
                   <img src={product.image} width="100%" alt={product.name} />
                 </div>
@@ -83,11 +84,14 @@ export default function ProductList({ addToCart }) {
                     <h5 className="product-title">
                       <a href="#">{product.name}</a>
                     </h5>
-                    <span>{product.description}</span>
+                    {/* <span>{product.description}</span> */}
                   </div>
                   <div className="cart-button mt-3 d-flex justify-content-between align-items-center">
                     <div className="add">
-                      <span>Rs. {product.price}</span>
+                      <span>
+                        Rs. <del>{product.price}</del>
+                        &nbsp;{product.price}
+                      </span>
                     </div>
                     <button
                       className="btn btn-outline-dark text-uppercase"

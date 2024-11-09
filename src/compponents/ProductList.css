@@ -1,6 +1,9 @@
 .product {
     position: relative;
     transition: all 0.4s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.17);
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .product img {
@@ -20,7 +23,6 @@
 
 .cart-button button {
     font-size: 10px;
-    border-radius: 50px;
     font-weight: 600;
 }
 
@@ -60,8 +62,12 @@ button:active {
 }
 
 .add span {
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 600;
+}
+
+.add del {
+    color: #979797;
 }
 
 .off {

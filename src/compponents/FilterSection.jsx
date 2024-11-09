@@ -66,47 +66,10 @@ export default function FilterSection() {
           <div className="heading">
             <h6 className="filter-heading pb-2">Price Range</h6>
           </div>
-          <div className="d-flex justify-content-between mt-2">
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckDefault6"
-              />
-              <label className="form-check-label" htmlFor="flexCheckDefault6">
-                Intel Core i7
-              </label>
-            </div>
-            <span>3</span>
-          </div>
-          <div className="d-flex justify-content-between mt-2">
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckDefault1"
-              />
-              <label className="form-check-label" htmlFor="flexCheckDefault1">
-                Intel Core i7
-              </label>
-            </div>
-            <span>3</span>
-          </div>
-          <div className="d-flex justify-content-between mt-2">
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckDefault2"
-              />
-              <label className="form-check-label" htmlFor="flexCheckDefault2">
-                Intel Core i7
-              </label>
-            </div>
-            <span>3</span>
+          <div className="price-range">
+            <input type="number" placeholder="Min" className="price-input" />
+            <span className="price-separator"> - </span>
+            <input type="number" placeholder="Max" className="price-input" />
           </div>
         </div>
       </div>

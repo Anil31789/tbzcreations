@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./ProductDetailsModal.css";
 export default function ProductDetailsModal({ product, onClose, addToCart }) {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("Small");
   const [selectedColor, setSelectedColor] = useState("Red");
+  const colors = ["Red", "Blue", "Green"];
+  const [nav1, setNav1] = useState(null);
+  const [nav2, setNav2] = useState(null);
 
   useEffect(() => {
     setQuantity(1);
@@ -22,6 +28,23 @@ export default function ProductDetailsModal({ product, onClose, addToCart }) {
     addToCart(productToAdd);
   };
 
+  // Settings for main and thumbnail sliders
+  const mainSliderSettings = {
+    asNavFor: nav2,
+    ref: (slider) => setNav1(slider),
+    dots: false,
+    arrows: true,
+    fade: true,
+  };
+
+  const thumbnailSliderSettings = {
+    asNavFor: nav1,
+    ref: (slider) => setNav2(slider),
+    slidesToShow: 3,
+    swipeToSlide: true,
+    focusOnSelect: true,
+  };
+
   return (
     <div className="modal-backdrop">
       <div className="modal-content">
@@ -31,7 +54,29 @@ export default function ProductDetailsModal({ product, onClose, addToCart }) {
         <div className="modal-body">
           <div className="row">
             <div className="col-md-6">
-              <img src={product.image} alt={product.name} width="100%" />
+              {/* Main Slider */}
+              <Slider {...mainSliderSettings}>
+                {product.images &&
+                  product.images.map((image, index) => (
+                    <div key={index}>
+                      {image.type === "video" ? (
+                        <video src={image.src} controls width="100%" />
+                      ) : (
+                        <img src={image.src} alt={product.name} width="100%" />
+                      )}
+                    </div>
+                  ))}
+              </Slider>
+
+              {/* Thumbnail Slider */}
+              <Slider {...thumbnailSliderSettings} className="thumbnail-slider">
+                {product.images &&
+                  product.images.map((image, index) => (
+                    <div key={index} className="thumbnail">
+                      <img src={image.src} alt={`Thumbnail ${index + 1}`} />
+                    </div>
+                  ))}
+              </Slider>
             </div>
 
             <div className="col-md-6 m-details">
@@ -55,14 +100,18 @@ export default function ProductDetailsModal({ product, onClose, addToCart }) {
               {/* Color Options */}
               <div>
                 <label>Color</label>
-                <select
-                  value={selectedColor}
-                  onChange={(e) => setSelectedColor(e.target.value)}
-                >
-                  <option>Red</option>
-                  <option>Blue</option>
-                  <option>Green</option>
-                </select>
+                <div className="color-options">
+                  {colors.map((color) => (
+                    <div
+                      key={color}
+                      className={`color-box ${
+                        selectedColor === color ? "selected" : ""
+                      }`}
+                      style={{ backgroundColor: color.toLowerCase() }}
+                      onClick={() => setSelectedColor(color)}
+                    />
+                  ))}
+                </div>
               </div>
 
               {/* Quantity */}

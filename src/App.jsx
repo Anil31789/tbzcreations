@@ -4,6 +4,8 @@ import FilterSection from "./compponents/FilterSection";
 import ProductList from "./compponents/ProductList";
 import SortProduct from "./compponents/SortProduct";
 import Headers from "./compponents/UI/Headers";
+import { FaWhatsapp } from "react-icons/fa";
+import Footer from "./compponents/UI/Footer";
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -64,6 +66,18 @@ function App() {
             </div>
           </div>
         </div>
+        <div className="whatsapp-chat">
+          <a
+            href="https://wa.me/1234567890"
+            target="_blank"
+            aria-label="Chat on WhatsApp"
+          >
+            <FaWhatsapp />
+          </a>
+        </div>
+      </div>
+      <div className="Footer-sec">
+        <Footer />
       </div>
     </div>
   );
