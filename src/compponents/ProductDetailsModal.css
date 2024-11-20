@@ -51,13 +51,13 @@
 
 /* Input and Button Styling */
 .modal-body label {
-    color: #000;
+    color: #222222;
     font-weight: 600;
 }
 
 .modal-body input,
 .modal-body select {
-    width: 50%;
+    /* width: 50%; */
     padding: 10px;
     margin-top: 10px;
     border-radius: 5px;
@@ -68,7 +68,7 @@
 
 .modal-body button {
     padding: 10px 25px;
-    background-color: #23a094;
+    background-color: #c99947;
     color: #fff;
     border: none;
     border-radius: 50px;
@@ -104,6 +104,7 @@
     display: flex;
     gap: 10px;
     margin-top: 8px;
+    margin-bottom: 20px;
 }
 
 .color-box {
@@ -134,4 +135,32 @@
 .thumbnail-slider .thumbnail img {
     width: 100%;
     border-radius: 4px;
+}
+
+.prev-product,
+.next-product {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #c99947;
+  color: #fff;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 10;
+  border-radius: 5px;
+}
+
+.prev-product {
+  left: 10px;
+}
+
+.next-product {
+  right: 10px;
+}
+
+.prev-product:hover,
+.next-product:hover {
+  background: #444;
 }

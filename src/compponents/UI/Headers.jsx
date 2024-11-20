@@ -2,14 +2,19 @@ import "./Headers.css";
 import { IoMdSearch } from "react-icons/io";
 import CartPopup from "../CartPopup";
 import { useState } from "react";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp, FaFacebook, FaEnvelope } from "react-icons/fa";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { FaCartPlus } from "react-icons/fa6";
 
 export default function Headers({ cartItems, removeFromCart, updateQuantity }) {
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [showShareDropdown, setShowShareDropdown] = useState(false);
   const toggleCartPopup = () => {
     setIsCartOpen(!isCartOpen);
+  };
+
+  const toggleShareDropdown = () => {
+    setShowShareDropdown(!showShareDropdown);
   };
 
   // Calculate total quantity of items in the cart
@@ -40,9 +45,41 @@ export default function Headers({ cartItems, removeFromCart, updateQuantity }) {
             )}
           </button>
         </div>
-        <button type="button" className="btn btn-dark mx-1">
-          <IoShareSocialOutline /> Share
-        </button>
+          {/* Share Button */}
+          <div className="share-dropdown-wrapper">
+          <button
+            type="button"
+            className="btn btn-dark mx-1"
+            onClick={toggleShareDropdown}
+          >
+            <IoShareSocialOutline /> Share
+          </button>
+          {showShareDropdown && (
+            <div className="share-dropdown">
+              <a
+                href="https://api.whatsapp.com/send?text=Check%20this%20out!"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaWhatsapp /> 
+              </a>
+              <a
+                href="mailto:?subject=Check%20this%20out&body=Check%20out%20this%20amazing%20product!"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaEnvelope /> 
+              </a>
+              <a
+                href="https://facebook.com/sharer/sharer.php?u=https://example.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaFacebook />
+              </a>
+            </div>
+          )}
+        </div>
       </div>
       <CartPopup
         isOpen={isCartOpen}

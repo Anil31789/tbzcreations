@@ -1,84 +1,47 @@
 import React from "react";
-import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import "./Footer.css";
 
 export default function Footer() {
   return (
     <footer className="footer">
-      <div className="footer-container">
-        {/* About Section */}
-        <div className="footer-section">
-          <h5>About Us</h5>
-          <p>
-            Welcome to our store! We offer a wide range of quality products at
-            great prices. Customer satisfaction is our top priority.
-          </p>
+      <div className="footer-left">
+        <div className="contact-details">
+          <h5>Contact Details</h5>
+          <p>Email: contact@yourstore.com</p>
+          <p>Phone: +1 234 567 890</p>
         </div>
-
-        {/* Navigation Links */}
-        <div className="footer-section">
-          <h5>Quick Links</h5>
-          <ul>
-            <li>
-              <a href="/about">About Us</a>
-            </li>
-            <li>
-              <a href="/contact">Contact Us</a>
-            </li>
-            <li>
-              <a href="/faq">FAQ</a>
-            </li>
-          </ul>
-        </div>
-
-        {/* Newsletter Section */}
-        <div className="footer-section">
-          <h5>Newsletter</h5>
-
-          <form className="newsletter-form">
-            <input type="email" placeholder="Your email" />
-            <button type="submit">Subscribe</button>
-          </form>
-        </div>
-
-        {/* Social Media Links */}
-        <div className="footer-section">
-          <h5>Follow Us</h5>
-          <div className="social-icons">
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaFacebook />
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaInstagram />
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaLinkedin />
-            </a>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaTwitter />
-            </a>
-          </div>
+        <div className="footer-copyright">
+          <p>&copy; 2024 TBZ Creations. All rights reserved.</p>
         </div>
       </div>
 
-      <div className="footer-bottom">
-        <p>&copy; 2024 TBZ Creations. All rights reserved.</p>
+      <div className="footer-right">
+        <h5>Contact Us</h5>
+        <form className="contact-form">
+          <input
+            type="text"
+            placeholder="Your Name"
+            name="name"
+            required
+            className="form-input"
+          />
+          <input
+            type="text"
+            placeholder="Your Mobile"
+            name="mobile"
+            required
+            className="form-input"
+          />
+          <textarea
+            placeholder="Your Message"
+            name="message"
+            required
+            className="form-textarea"
+          ></textarea>
+          <button type="submit" className="send-button">
+            Send
+          </button>
+        </form>
       </div>
     </footer>
   );

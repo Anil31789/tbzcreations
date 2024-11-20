@@ -85,7 +85,9 @@ button:active {
     justify-content: center;
     color: #fff
 }
-
+.bg-success {
+    background-color: #c99947 !important;
+}
 /* //Loader  */
 
 .loader {

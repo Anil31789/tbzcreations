@@ -64,6 +64,17 @@ export default function ProductList({ addToCart }) {
     setCurrentPage(1);
   };
 
+  const handleNavigateProduct = (direction) => {
+    const currentIndex = productData.findIndex((p) => p.id === selectedProduct.id);
+    if (direction === "next") {
+      const nextIndex = (currentIndex + 1) % productData.length;
+      setSelectedProduct(productData[nextIndex]);
+    } else if (direction === "previous") {
+      const prevIndex = (currentIndex - 1 + productData.length) % productData.length;
+      setSelectedProduct(productData[prevIndex]);
+    }
+  };
+
   if (loading) return <Loader />;
   if (isPending) return <Loader />;
   if (productData.length === 0) return <h2>No products found</h2>;
@@ -110,6 +121,7 @@ export default function ProductList({ addToCart }) {
           product={selectedProduct}
           onClose={closeModal}
           addToCart={addToCart}
+          onNavigateProduct={handleNavigateProduct}
         />
       </div>
       {/* Pagination Buttons */}

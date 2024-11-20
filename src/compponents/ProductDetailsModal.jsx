@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./ProductDetailsModal.css";
-export default function ProductDetailsModal({ product, onClose, addToCart }) {
+export default function ProductDetailsModal({ product, onClose, addToCart, onNavigateProduct }) {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("Small");
   const [selectedColor, setSelectedColor] = useState("Red");
@@ -24,8 +24,10 @@ export default function ProductDetailsModal({ product, onClose, addToCart }) {
       quantity,
       selectedSize,
       selectedColor,
+  
     };
     addToCart(productToAdd);
+    onClose();
   };
 
   // Settings for main and thumbnail sliders
@@ -50,6 +52,19 @@ export default function ProductDetailsModal({ product, onClose, addToCart }) {
       <div className="modal-content">
         <button className="close-modal" onClick={onClose}>
           &times;
+        </button>
+          {/* Previous and Next Arrows */}
+          <button
+          className="prev-product"
+          onClick={() => onNavigateProduct("previous")}
+        >
+          &lt;
+        </button>
+        <button
+          className="next-product"
+          onClick={() => onNavigateProduct("next")}
+        >
+          &gt;
         </button>
         <div className="modal-body">
           <div className="row">
@@ -82,10 +97,20 @@ export default function ProductDetailsModal({ product, onClose, addToCart }) {
             <div className="col-md-6 m-details">
               <h2 className="pb-3">{product.name}</h2>
               <p>{product.description}</p>
-              <h4 className="pb-4">Rs. {product.price}</h4>
-
-              {/* Size Options */}
+              <h4 className="pb-4"> Rs. <del>{product.price}</del> {product.price}</h4>
+                  <div className="d-flex justify-content-between">
+                     {/* Quantity */}
               <div>
+                <label>Quantity</label>
+                <input
+                  type="number"
+                  min="1"
+                  value={quantity}
+                  onChange={(e) => setQuantity(parseInt(e.target.value))}
+                />
+              </div>
+               {/* Size Options */}
+               <div>
                 <label>Size</label>
                 <select
                   value={selectedSize}
@@ -96,6 +121,8 @@ export default function ProductDetailsModal({ product, onClose, addToCart }) {
                   <option>Large</option>
                 </select>
               </div>
+                  </div>
+             
 
               {/* Color Options */}
               <div>
@@ -114,17 +141,16 @@ export default function ProductDetailsModal({ product, onClose, addToCart }) {
                 </div>
               </div>
 
-              {/* Quantity */}
+              <div className="d-flex justify-content-between">
               <div>
-                <label>Quantity</label>
-                <input
-                  type="number"
-                  min="1"
-                  value={quantity}
-                  onChange={(e) => setQuantity(parseInt(e.target.value))}
-                />
+                <label>Weight/ Volume -</label>
               </div>
-
+              <div>
+                <label>Material -</label>
+              </div>
+              </div>
+             
+<br></br>
               <button
                 className="btn btn-dark mt-3 text-uppercase"
                 onClick={handleAddToCart}
