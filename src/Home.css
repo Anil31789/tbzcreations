@@ -8,6 +8,8 @@
   cursor: pointer;
 }
 
+
+
 .sort-btn.active {
   background-color: #212529;
   color: #fff;
@@ -55,3 +57,10 @@
 del {
   color: #979797;
 }
+
+/* main container style */
+
+.main-container{
+  min-height: 90vh;
+}
+

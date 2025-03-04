@@ -1,17 +1,38 @@
 import "./Headers.css";
 import { IoMdSearch } from "react-icons/io";
-import CartPopup from "../CartPopup";
-import { useState } from "react";
+import CartPopup from "../CartPopup/CartPopup";
+import { useEffect, useState } from "react";
 import { FaWhatsapp, FaFacebook, FaEnvelope } from "react-icons/fa";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { FaCartPlus } from "react-icons/fa6";
+import {  useSelector } from "react-redux";
 
-export default function Headers({ cartItems, removeFromCart, updateQuantity }) {
+export default function Headers({ setfilters , resetCart, cartItems, removeFromCart, updateQuantity }) {
+  const [filterObj, setFilterobj] = useState({ search: '', categoryIds: [] })
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showShareDropdown, setShowShareDropdown] = useState(false);
+  const category = useSelector(state => state.category.category)
   const toggleCartPopup = () => {
     setIsCartOpen(!isCartOpen);
   };
+
+  useEffect(() => {
+    if("results" in category){
+      let idsArr = category.results.filter(category =>  category.selected )
+      .map(categoryDet => categoryDet.id)
+        setFilterobj({ ...filterObj, categoryIds: idsArr })
+    }
+  }, [category])
+
+  useEffect(()=>{
+    setfilters(filterObj)
+    
+  },[filterObj])
+
+  const handleSearch = (e) => {
+    setFilterobj({ ...filterObj, search: e.target.value })
+  }
+
 
   const toggleShareDropdown = () => {
     setShowShareDropdown(!showShareDropdown);
@@ -23,6 +44,7 @@ export default function Headers({ cartItems, removeFromCart, updateQuantity }) {
     0
   );
 
+
   return (
     <header className="header">
       <div className="header-left">
@@ -32,7 +54,7 @@ export default function Headers({ cartItems, removeFromCart, updateQuantity }) {
       <div className="header-middle">
         <div className="search-box">
           <IoMdSearch />
-          <input type="text" placeholder="Search..." />
+          <input type="text" onChange={handleSearch} placeholder="Search..." />
         </div>
       </div>
 
@@ -45,8 +67,8 @@ export default function Headers({ cartItems, removeFromCart, updateQuantity }) {
             )}
           </button>
         </div>
-          {/* Share Button */}
-          <div className="share-dropdown-wrapper">
+        {/* Share Button */}
+        <div className="share-dropdown-wrapper">
           <button
             type="button"
             className="btn btn-dark mx-1"
@@ -61,14 +83,14 @@ export default function Headers({ cartItems, removeFromCart, updateQuantity }) {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaWhatsapp /> 
+                <FaWhatsapp />
               </a>
               <a
                 href="mailto:?subject=Check%20this%20out&body=Check%20out%20this%20amazing%20product!"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaEnvelope /> 
+                <FaEnvelope />
               </a>
               <a
                 href="https://facebook.com/sharer/sharer.php?u=https://example.com"
@@ -82,6 +104,7 @@ export default function Headers({ cartItems, removeFromCart, updateQuantity }) {
         </div>
       </div>
       <CartPopup
+        resetCart={resetCart}
         isOpen={isCartOpen}
         closePopup={toggleCartPopup}
         cartItems={cartItems}

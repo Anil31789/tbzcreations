@@ -37,10 +37,17 @@
     z-index: 9;
 }
 
+.modal-body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Flex Layout for Modal Body */
 .modal-body .row {
+    width: 100%;
+    height: 100%;
     display: flex;
-    flex-wrap: wrap;
 }
 
 /* Image Styling */
@@ -76,9 +83,21 @@
     width: 50%;
 }
 
-.m-details {
+.m-details  {
     padding-left: 3rem;
     padding-right: 3rem;
+    width: 50%;
+    height: 100%;
+}
+
+
+
+
+.image-section {
+    width: 50%;
+    height: 100%;
+    background: chartreuse;
+
 }
 
 @media screen and (max-width: 650px) {

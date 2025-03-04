@@ -1,3 +1,7 @@
+
+.productlist{
+    min-height: 58vh;
+}
 .product {
     position: relative;
     transition: all 0.4s ease;
@@ -102,6 +106,18 @@ button:active {
     -webkit-mask-composite: source-out;
     mask-composite: subtract;
     animation: l3 1s infinite linear;
+}
+
+.noproduct{
+    text-align: center;
+}
+
+.loaderBox{
+    width: 100%;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @keyframes l3 {

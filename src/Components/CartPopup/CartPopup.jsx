@@ -1,8 +1,10 @@
 import "./CartPopup.css";
 import { LiaTimesSolid } from "react-icons/lia";
-import { useState } from "react";
+import {  useRef, useState } from "react";
+import api from "../../apiCalls/postApi";
 
 export default function CartPopup({
+  resetCart,
   isOpen,
   closePopup,
   cartItems = [],
@@ -11,25 +13,40 @@ export default function CartPopup({
 }) {
   const [showInquiryPopup, setShowInquiryPopup] = useState(false);
   const [inquirySubmitted, setInquirySubmitted] = useState(false);
-  const [formData, setFormData] = useState({ fullName: "", mobileNo: "" });
+  const [formData, setFormData] = useState({ fullName: "", mobileNo: "", cartData: [] });
+  const name = useRef(null);
+  const mobile = useRef(null);
 
   // Handle form submission
-  const handleInquirySubmit = (e) => {
+  const handleInquirySubmit = async (e) => {
     e.preventDefault();
+    try {
+      const res = await api.post('send-inquiry', formData)
+      console.log(res);
+    } catch (error) {
+      console.log(error,'inquirySubmit Error');
+      
+    }
     setInquirySubmitted(true);
+    resetCart()
+    setFormData({ fullName: "", mobileNo: "", cartData: [] })
+    name.current.value = "";
+    mobile.current.value = "";
+    
   };
 
   // Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value, cartData: cartItems });
   };
 
   const handleQuantityChange = (id, newQuantity) => {
     if (newQuantity >= 1) {
-      updateQuantity(id, newQuantity); 
+      updateQuantity(id, newQuantity);
     }
   };
+ 
 
 
   return (
@@ -52,13 +69,13 @@ export default function CartPopup({
                     <li key={item.id} className="cart-item">
                       <div className="cart-item-left">
                         <img
-                          src={item.image}
-                          alt={item.name}
+                          src={item.contents[0].file}
+                          alt={item.title}
                           className="cart-item-image"
                         />
                       </div>
                       <div className="cart-item-middle">
-                        <h5 className="cart-item-title">{item.name}</h5>
+                        <h5 className="cart-item-title">{item.title}</h5>
                         <div className="cart-item-quantity">
                           <span className="cart-quantity">Quantity</span>
                           <div className="quantity-controls">
@@ -95,14 +112,14 @@ export default function CartPopup({
                           className="remove-item-icon"
                           onClick={() => removeFromCart(item.id)}
                         />
-                        <div className="cart-item-price">Rs. {item.price}</div>
+                        <div className="cart-item-price">{item.discountPrice !== null ? `Rs. ${item.discountPrice}` : `Rs. ${item.price}`}</div>
                       </div>
                     </li>
                   ))}
                 </ul>
               )}
               <div className="d-md-flex justify-content-md-end">
-                <button
+                {cartItems.length === 0 ? "" : <button
                   className="btn btn-dark mt-3 text-uppercase send-inquiry"
                   onClick={() => {
                     closePopup(); // Close cart popup
@@ -110,7 +127,7 @@ export default function CartPopup({
                   }}
                 >
                   Send Inquiry
-                </button>
+                </button>}
               </div>
             </div>
           </div>
@@ -137,6 +154,7 @@ export default function CartPopup({
                       type="text"
                       name="fullName"
                       className="form-control"
+                      ref={name}
                       value={formData.fullName}
                       onChange={handleInputChange}
                       required
@@ -146,9 +164,10 @@ export default function CartPopup({
                   <div className="form-group mt-3">
                     <label>Mobile No</label>
                     <input
-                      type="text"
+                      type="number"
                       name="mobileNo"
                       className="form-control"
+                      ref={mobile}
                       value={formData.mobileNo}
                       onChange={handleInputChange}
                       required

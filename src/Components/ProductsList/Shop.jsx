@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Headers from "./compponents/UI/Headers";
-import ProductList from "./ProductList";
+import Headers from "../Header/Headers";
+import ProductList from "../Products/ProductList";
 
 export default function Shop() {
   const [cartItems, setCartItems] = useState([]);

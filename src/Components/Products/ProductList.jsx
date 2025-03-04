@@ -1,15 +1,18 @@
 import { useEffect, useState, useTransition } from "react";
-import { allProducts } from "../api/postApi";
-import Loader from "./UI/Loader";
-import ProductDetailsModal from "./ProductDetailsModal";
+import { allProducts } from "../../apiCalls/postApi";
+import Loader from "../Loader/Loader";
+import ProductDetailsModal from "../ProductDetail/ProductDetailsModal";
 import "./ProductList.css";
 import {
   MdKeyboardArrowLeft,
   MdKeyboardArrowRight,
   MdKeyboardDoubleArrowLeft,
 } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function ProductList({ addToCart }) {
+export default function ProductList({filters ,setproductCounts , addToCart }) {
+  const [id,setid] = useState('')
+  const {catelogID} = useSelector(state => state.catelogID) 
   const [isPending, startTransition] = useTransition();
   const [productData, setProductData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -17,6 +20,14 @@ export default function ProductList({ addToCart }) {
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 6;
+
+
+  useEffect(()=>{
+    setid(catelogID)
+  },[catelogID])
+
+
+  
 
   const openModal = (product) => {
     setSelectedProduct(product);
@@ -28,16 +39,20 @@ export default function ProductList({ addToCart }) {
   useEffect(() => {
     startTransition(async () => {
       try {
-        const res = await allProducts();
-        console.log(res, res);
-        setProductData(res.data);
+        if(id !== ''){
+        let filter = {...filters,catelogID: id}
+        const {data} = await allProducts(filter)
+        setproductCounts(data.count)
+        setProductData(data.results);
         setLoading(false);
+        }
       } catch (error) {
         console.log("Failed to fetch products", error);
         setLoading(false);
+        setProductData([]);
       }
     });
-  }, []);
+  }, [filters,id]);
 
   // Get the current page products
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -64,6 +79,11 @@ export default function ProductList({ addToCart }) {
     setCurrentPage(1);
   };
 
+  function formatPercentage(value) {
+    return Number.isInteger(value) ? value : parseFloat(value.toFixed(1));
+  }
+  
+
   const handleNavigateProduct = (direction) => {
     const currentIndex = productData.findIndex((p) => p.id === selectedProduct.id);
     if (direction === "next") {
@@ -75,34 +95,34 @@ export default function ProductList({ addToCart }) {
     }
   };
 
-  if (loading) return <Loader />;
-  if (isPending) return <Loader />;
-  if (productData.length === 0) return <h2>No products found</h2>;
+  if (loading) return <div className="loaderBox"> <Loader /></div>;
+  if (isPending) return <div className="loaderBox"> <Loader /></div>;
+  if (productData.length === 0) return<div className="loaderBox"> <h2>No products found</h2></div>;
 
   return (
     <>
-      <div className="row g-4">
+      <div className="productlist row g-4">
         {currentProducts.map((product) => {
           return (
             <div className="col-md-4" key={product.id}>
               <div className="product">
-                <span className="off bg-success">-25% OFF</span>
+                {product.discountPrice === null ? '': <span className="off bg-success">-{formatPercentage(((product.price-product.discountPrice)*100)/product.price)}% OFF</span>}
                 <div className="text-center">
-                  <img src={product.image} width="100%" alt={product.name} />
+                  <img src={product.contents[0].file} width="100%" alt={product.title} />
                 </div>
                 <div className="product-info">
                   <div className="about" onClick={() => openModal(product)}>
                     <h5 className="product-title">
-                      <a href="#">{product.name}</a>
+                      <a href="#">{product.title}</a>
                     </h5>
                     {/* <span>{product.description}</span> */}
                   </div>
                   <div className="cart-button mt-3 d-flex justify-content-between align-items-center">
                     <div className="add">
-                      <span>
+                        {product.discountPrice === null ? <span> Rs. &nbsp;{product.price}</span>: <span>
                         Rs. <del>{product.price}</del>
-                        &nbsp;{product.price}
-                      </span>
+                        &nbsp;{product.discountPrice}
+                      </span>}
                     </div>
                     <button
                       className="btn btn-outline-dark text-uppercase"
@@ -125,7 +145,7 @@ export default function ProductList({ addToCart }) {
         />
       </div>
       {/* Pagination Buttons */}
-      <div className="pagination-buttons mt-5 pt-4">
+      <div className="pagination pagination-buttons mt-5 pt-4">
         <div>
           <button
             className="btn border-0 b-radious"
